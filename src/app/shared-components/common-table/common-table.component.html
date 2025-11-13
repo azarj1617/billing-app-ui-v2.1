@@ -1,0 +1,61 @@
+<div class="d-flex mt-1">
+     <div class="ms-3">
+        <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{config?.screen}}</li>
+        </ol>
+        </nav>
+    </div>
+    <div class="d-flex ms-auto pe-2">
+        <div *ngIf="config?.ddConfig" style="padding:0 5px">
+            <select class="form-select form-select-sm" (change)="ddChange($event)">
+                <option *ngFor="let option of config?.ddConfig?.options" [value]="option?.name">
+                    {{option?.name}}
+                </option>
+            </select>
+        </div>
+        <div *ngIf="config?.search" style="padding:0 5px">
+            <input type="text" class="form-control" (input)="searchFun($event)">
+        </div>
+        <div *ngFor="let button of config?.buttonList" style="padding:0 5px"> 
+            <button class="btn btn-sm btn-info" (click)="btnAction(button?.label)">{{button?.label}}</button>
+        </div>        
+    </div>    
+</div>
+<div class="p-2" style="height: 70vh;overflow-y: scroll;">
+    <ng-container >
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th *ngFor="let head of header">{{head?.name}}</th>
+                    <ng-container *ngIf="header?.length>0">
+                        <th *ngIf="config?.actionList?.length>0">Actions</th>
+                    </ng-container>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of dataList">
+                    <ng-container *ngFor="let head of header">
+                    <td>
+                        <span>{{ head.exec ? head.exec(data) : data[head.field] }}</span>
+                    </td>
+                    </ng-container>
+                    
+                    <td *ngIf="dataList?.length>0">
+                        <div class="d-flex">
+                            <div *ngFor="let action of config?.actionList">
+                                <button class="btn btn-sm me-1" [ngClass]="action?.btnClass" [title]="action?.name" (click)="actionClick(data,action?.name)">
+                                    <i [class]="action.class"></i></button>
+                            </div>
+                        </div>
+                    </td>
+                   
+                    <!-- <input type="text" class="form-control" style="border:none;width:225px" [value]="item?.itemDescription"> -->
+                </tr>
+            </tbody>
+        </table>
+    </ng-container>
+</div>
+

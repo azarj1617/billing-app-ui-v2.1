@@ -1,0 +1,164 @@
+<div class="d-flex mt-1">
+    <div class="ms-3">
+        <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Item Master</li>
+        </ol>
+        </nav>
+    </div>
+    <div class="d-flex ms-auto pe-2">
+        <div *ngIf="config?.ddConfig" style="padding:0 5px">
+            <select class="form-select form-select-sm" (change)="ddChange($event)">
+                <option *ngFor="let option of config?.ddConfig?.options" [value]="option?.name">
+                    {{option?.name}}
+                </option>
+            </select>
+        </div>
+        <div style="padding:0 5px">
+            <input type="text" class="form-control" (input)="searchFun($event)">
+        </div>
+        <div *ngFor="let button of config?.buttonList" style="padding:0 5px"> 
+            <button class="btn btn-sm btn-info" (click)="btnAction(button?.label)">{{button?.label}}</button>
+        </div>        
+    </div>    
+</div>
+<div class="p-2" style="height: 70vh;overflow-y: scroll;">
+    <ng-container >
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th *ngFor="let head of header">{{head?.name}}</th>
+                    <th *ngIf="config?.actionList?.length>0">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of dataList">
+                    <ng-container *ngFor="let head of header">
+                    <td>{{item[head?.field]}}</td>
+                    </ng-container>
+                    
+                    <td>
+                        <div class="d-flex">
+                            <div *ngFor="let action of config?.actionList">
+                                <button class="btn btn-sm me-1" [ngClass]="action?.btnClass" [title]="action?.name" (click)="actionClick(item,action?.name)">
+                                    <i [class]="action.class"></i></button>
+                            </div>
+                        </div>
+                    </td>
+                   
+                    <!-- <input type="text" class="form-control" style="border:none;width:225px" [value]="item?.itemDescription"> -->
+                </tr>
+            </tbody>
+        </table>
+    </ng-container>
+</div>
+
+
+<div class="modal fade" id="item-master-modal" tabindex="-1" aria-labelledby="item-master-modalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="item-master-modalLabel">{{modelTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="itemMasterForm" class="mb-3">
+          <div class="mb-1">
+            <label for="recipient-name" class="col-form-label">Item Name</label>
+            <input type="text" class="form-control" formControlName="itemName">
+          </div>
+          <div class="mb-1">
+            <label for="message-text" class="col-form-label">Item Description</label>
+            <input type="text" class="form-control" formControlName="itemDescription">
+          </div>
+           <div class="row mb-1">
+            <div class="col-md-6">
+                <label for="message-text" class="col-form-label">UOM</label>
+                <input type="text" class="form-control" formControlName="uom">
+            </div>
+            <div class="col-md-6">
+                <label for="message-text" class="col-form-label">EAC</label>
+                <input type="text" class="form-control" formControlName="eaCode">
+            </div>
+          </div>
+          </form>
+          <table>
+                <thead>
+                    <tr style="font-size: 12px;">
+                        <th>MRP</th>
+                        <th>Selling Price</th>
+                        <th>Whole Sale Price</th>
+                        <th>Cost</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let price of priceList;let pi=index">
+                        <td><input type="text" class="form-control" (change)="priceChange()"
+                            [(ngModel)]="price.mrp" style="height:25px" 
+                            oninput="this.value = this.value.replace(/[^0-9.]/g, '')"></td>
+                        <td><input type="text" class="form-control" (change)="priceChange()"
+                            [(ngModel)]="price.sellingPrice" style="height:25px"
+                            oninput="this.value = this.value.replace(/[^0-9.]/g, '')"></td>
+                        <td><input type="text" class="form-control" (change)="priceChange()"
+                            [(ngModel)]="price.wholeSalePrice" style="height:25px"
+                            oninput="this.value = this.value.replace(/[^0-9.]/g, '')"></td>
+                        <td><input type="text" class="form-control" (change)="priceChange()"
+                            [(ngModel)]="price.costPrice" style="height:25px"
+                            oninput="this.value = this.value.replace(/[^0-9.]/g, '')"></td>
+                        <td>
+                            <button class="btn btn-sm me-1" [title]="'Delete Price'" (click)="deltePrice(price,pi)">
+                                    <i class="fas fa-trash" style="color:red"></i></button>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="btn btn-sm btn-info mt-2" 
+                                (click)="addPrice()" [disabled]="isNoAddPriceBtn">Add Price</button>
+                        </td>
+                    </tr>
+                </tbody>
+          </table>
+          <div class="mt-3">
+            <label for="">Status</label>
+            <div class="form-check mt-1">
+            <input class="form-check-input" type="checkbox" [(ngModel)]="this.itemMasterForm.value.status">
+            <label class="form-check-label" for="flexCheckDefault">
+                Active
+            </label>
+            </div>
+        </div>          
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-info" (click)="saveItem()">Save</button>
+        <button type="button" class="btn btn-sm btn-secondary" (click)="modalClose('item-master-modal')">Close</button>
+      </div>
+    </div>
+  </div>
+  <div id="closeBtn"></div>
+</div>
+
+<div class="modal fade" id="import-modal" tabindex="-1" aria-labelledby="item-master-modalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="item-master-modalLabel">{{modelTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+            <label for="formFileSm" class="form-label">Upload Items (.xlsx) File Here</label>
+            <input class="form-control form-control-sm" id="itemsImport" type="file" (change)="fileUpload($event)">
+        </div>
+     </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-info" (click)="importItems()" [disabled]="!uploadFile">Import</button>
+         <button type="button" class="btn btn-sm btn-secondary" (click)="modalClose('import-modal')">Close</button>
+    </div>
+    </div>
+ </div>
+ <div id="closeBtn"></div>
+</div>
+

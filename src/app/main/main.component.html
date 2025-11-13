@@ -1,0 +1,51 @@
+<div *ngIf="showLoader" class="backdrop">
+  <div class="loader"></div>
+</div>
+<div style="display: flex;justify-content: right;">
+      <div id="alertContainer" style="position:absolute;width: 300px;z-index: 1100;top:30px;right:30px;font-weight:350"></div>
+</div>
+<div class="nav-bar" style="position: sticky;top:0;z-index: 1;">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <div>
+      <a href="#"><img class="brand-logo" src="assets/fatorill-brand-logo.png"/></a>
+    </div>
+    
+    <!-- <a class="navbar-brand" href="#">Billing App</a> -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+      </ul>
+     <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-power-off"></i>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="left:-120px">
+            <li><a class="dropdown-item" href="#" (click)="logOut()">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</div>
+<div class="d-flex tool-bar" style="background: #c3e6fb;padding: 10px;position: sticky;top:56px">
+    <div *ngFor="let shortcut of shortCuts"  class="ms-1">
+      <button class="btn btn-sm btn-light" [title]="shortcut?.name" (click)="tollClick(shortcut?.name)">
+        <i [class]="shortcut?.icon"></i></button>
+    </div>
+    <!-- <div class="ms-1">
+      <button class="btn btn-sm btn-light" title="Customer's Master" (click)="tollClick('customer')">
+        <i class="far fa-user"></i></button>
+    </div> -->
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <router-outlet></router-outlet>
+    </div>
+</div>

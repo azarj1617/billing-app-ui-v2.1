@@ -1,0 +1,19 @@
+tr th{
+    font-weight: 500;
+}
+input{
+    height: 30px;
+}
+label,h5{
+    font-size: 13px;
+}
+
+input[type="checkbox"]{
+    height: 16px;
+}
+
+thead{
+    position: sticky;
+    top: -10px;
+    background: #fff;
+}

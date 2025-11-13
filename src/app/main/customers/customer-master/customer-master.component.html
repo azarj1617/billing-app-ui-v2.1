@@ -1,0 +1,101 @@
+<app-common-table
+[config]="configuration"
+[header]="headerData"
+[dataList]="dataList"
+(action)="actionFunc($event)"
+></app-common-table>
+
+<!--Customer Add / Update Modal-->
+
+<div class="modal fade" id="customer-modal" tabindex="-1" aria-labelledby="customer-modalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="customer-modalLabel">{{modelTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="customerMasterForm" class="mb-3">
+          <div class="mb-1">
+            <label for="recipient-name" class="col-form-label">Customer's First Name</label>
+            <span style="margin-left:5px;color:red">*</span>
+            <input type="text" class="form-control" formControlName="customerFirstName" (input)="onTextInput($event)">
+          </div>
+          <div class="mb-1">
+            <label for="message-text" class="col-form-label">Customer's Last Name</label>
+            <input type="text" class="form-control" formControlName="customerLastName" (input)="onTextInput($event)">
+          </div>
+           <div class="row mb-1">
+            <div class="col-md-6">
+                <label for="message-text" class="col-form-label">Address</label>
+                <textarea type="textarea" class="form-control" formControlName="address"></textarea>
+            </div>
+            <div class="col-md-6">
+                <label for="message-text" class="col-form-label">City</label>
+                <input type="text" class="form-control" formControlName="city" (input)="onTextInput($event)">
+            </div>
+            <div class="col-md-6">
+                <label for="message-text" class="col-form-label">State</label>
+                <input type="text" class="form-control" formControlName="state" (input)="onTextInput($event)">
+            </div>
+            <div class="col-md-6">
+                <label for="message-text" class="col-form-label">Mobile</label>
+                <span style="margin-left:5px;color:red">*</span>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    formControlName="mobile" 
+                    maxlength="10" 
+                    pattern="[0-9]*"
+                    (input)="onMobileInput($event)">
+            </div>
+             <div class="col-md-6">
+                <label for="message-text" class="col-form-label">Price Type</label>
+                <select type="text" class="form-select" formControlName="priceType">
+                    <option *ngFor="let price of priceType" [value]="price?.id">{{price?.label}}</option>
+                </select>
+            </div>
+            <div class="col-md-6 mt-3">
+            <label for="">Status</label>
+            <div class="form-check mt-1">
+            <input class="form-check-input" type="checkbox" formControlName="status">
+            <label class="form-check-label" for="flexCheckDefault">
+                Active
+            </label>
+            </div>
+        </div>   
+          </div>
+          </form>
+                
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-info" (click)="saveCustomerData()">Save</button>
+        <button type="button" class="btn btn-sm btn-secondary" (click)="modalClose('customer-modal')">Close</button>
+      </div>
+    </div>
+  </div>
+  <div id="closeBtn"></div>
+</div>
+
+<!--Customer Import Modal-->
+<div class="modal fade" id="customer-import-modal" tabindex="-1" aria-labelledby="customer-modalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="customer-modalLabel">{{modelTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+            <label for="formFileSm" class="form-label">Upload Items (.xlsx) File Here</label>
+            <input class="form-control form-control-sm" id="customerImport" type="file" (change)="fileUpload($event)">
+        </div>
+     </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-info" (click)="importCustomers()" [disabled]="!uploadFile">Import</button>
+         <button type="button" class="btn btn-sm btn-secondary" (click)="modalClose('customer-import-modal')">Close</button>
+    </div>
+    </div>
+ </div>
+ <div id="closeBtn"></div>
+</div>

@@ -1,0 +1,148 @@
+thead, tfoot {
+  position: sticky;
+  background: #f9f9f9;
+  z-index: 2;
+}
+
+thead {
+  top: 0;        /* stick header at top */
+}
+
+  // tfoot {
+  //   bottom: 0;     /* stick footer at bottom */
+  // }
+table .form-control:not(.modal .form-control){
+  border: none;
+  background: none;
+}
+table .form-control:focus{
+  border:none;
+  // box-shadow:none;
+  background: none;
+}
+table tbody{
+  font-size: 14px;
+  vertical-align: middle;
+  overflow-y: scroll;
+}
+
+table tbody .amout-field{
+  text-align: right!important;
+}
+
+tbody tr:first-child{
+    position: sticky;
+    top: 40px;
+    background: #fff!important;
+}
+
+.table-footer {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #f8f9fa;
+  border-top: 2px solid #ddd;
+  padding: 10px;
+  text-align: right;
+  font-weight: bold;
+}
+::ng-deep .mat-mdc-form-field-subscript-wrapper{
+  height: 0;
+}
+input[type="date"] {
+  height: 25px;
+}
+
+.overlay-container{
+    position: absolute;
+    top: 10px;
+    z-index: 10;
+    right: 0;
+    height: 85vh;
+    background: #fff;
+    overflow-y: scroll;
+    width: 30vw;
+    padding: 10px 5px 10px 5px;
+}
+
+.quote-row{
+    padding: 5px 0;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+}
+.quote-row:hover{
+  background: #dee2e6;
+}
+
+.option-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 14px;
+}
+
+.option-row .col {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.option-row .eac {width: 60px; }
+.option-row .name { font-weight: bold; width: 250px; }
+.option-row .desc { width: 250px; }
+.option-row .mrp { text-align: right; width: 80px; }
+.option-row .price { text-align: right; width: 80px; font-weight: bold; }
+
+
+.dropdown-panel {
+  position: absolute;
+  z-index: 1000;
+  background: #fff;
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto;
+  width: 500px;
+}
+
+.dropdown-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dropdown-table tr {
+  cursor: pointer;
+}
+
+.dropdown-table tr.active {
+  background-color: #1976d2;
+  color: white;
+}
+
+.customer-details p{
+  font-size: 13px;
+  padding: 0;
+  margin: 0;
+}
+
+.mat-header{
+    opacity: 1!important;
+    position: sticky;
+    top: -9px;
+    background-color: #fff;
+    z-index: 1!important;
+}
+
+#item-master-modal{
+    input{
+      height: 30px;
+  }
+  label,h5{
+      font-size: 13px;
+  }
+
+  input[type="checkbox"]{
+      height: 16px;
+  }
+}

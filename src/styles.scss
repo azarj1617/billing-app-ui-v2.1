@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.cdk-overlay-container, .cdk-overlay-pane {
+  position: fixed !important;
+  background-color: #fff !important;
+  z-index: 2000 !important; /* higher than bootstrap table */
+}
+
+/* Highlight on keyboard navigation */
+.mat-mdc-option.mat-mdc-option-active {
+  background-color: #c3e6fb !important; /* Material blue */
+  color: #000 !important;
+}
+
+/* Selected option (after Enter / click) */
+.mat-mdc-option.mdc-list-item--selected {
+  background-color: #c3e6fb !important;
+  color: #000 !important;
+}
+
+/* Highlight on hover */
+.mat-mdc-option:hover {
+  background-color: #e39ff8 !important; /* Darker blue */
+  color: #000 !important;
+}

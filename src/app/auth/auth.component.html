@@ -1,0 +1,23 @@
+  <div class="container-fluid">
+<div style="display: flex;justify-content: right;">
+      <div id="alertContainer" style="position:absolute;width: 300px;z-index: 1100;top:30px;right:30px;font-weight:350"></div>
+</div>
+    <div class="login-container">  
+        <div style="display: flex;justify-content: center;margin-top: -20px;margin-bottom: 10px;">
+            <img src="assets/fatorill-brand-logo.png" style="height: 60px;border-radius: 10px;"/>
+        </div>     
+        <form [formGroup]="loginForm">
+        <div>
+            <label for="username">User Name</label>
+            <input type="text" formControlName="username" class="form-control" style="height:30px">
+        </div>
+        <div class="mt-2">
+            <label for="password">Password</label>
+            <input type="password" formControlName="password" class="form-control" style="height:30px">
+        </div>
+        <div class="mt-2">
+            <button class="btn btn-sm btn-info" (click)="login()">Login</button>
+        </div>
+        </form>
+    </div>
+</div>

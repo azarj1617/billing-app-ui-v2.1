@@ -1,0 +1,21 @@
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div *ngIf="config?.title" class="modal-header">
+        <h5 *ngIf="config?.title" class="modal-title" id="confirmModalLabel">{{config?.title}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="actionFun('close')"></button>
+      </div>
+      <div class="modal-body">
+        <p *ngIf="config?.message">{{config?.message}}</p>
+        <p *ngIf="config?.message1">{{config?.message1}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary actionBtn" data-bs-dismiss="modal"
+        (click)="actionFun((config?.closeBtnLabel)?config?.closeBtnLabel?.toLowerCase():'close')">{{(config?.closeBtnLabel)?config?.closeBtnLabel:'Close'}}</button>
+        <button type="button" class="btn btn-sm btn-info actionBtn"
+         (click)="actionFun((config?.actionBtnLabel)?config?.actionBtnLabel?.toLowerCase():'action')">{{(config?.actionBtnLabel)?config?.actionBtnLabel:'Action'}}</button>
+      </div>
+    </div>
+  </div>
+</div>
